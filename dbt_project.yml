@@ -40,3 +40,8 @@ models:
     # Applies to all files under models/example/
     example:
       +materialized: table
+
+# configuracion para saber donde se crea el seed
+# seeds:
+#   +database: "ALUMNO24_DEV_BRONZE_DB"
+#   +schema: "SEEDS"
