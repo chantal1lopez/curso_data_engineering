@@ -13,11 +13,11 @@ sources:
       error_after: { count: 744, period: hour }
 
     tables:
-      - name: budget
-        loaded_at_field: _fivetran_synced
+      - name: BUDGET
+        loaded_at_field: _FIVETRAN_SYNCED
         columns:
-          - name: _row
-          - name: product_id
-          - name: quantity
-          - name: month
-          - name: _fivetran_synced
+          - name: _ROW
+          - name: PRODUCT_ID
+          - name: QUANTITY
+          - name: MONTH
+          - name: _FIVETRAN_SYNCED

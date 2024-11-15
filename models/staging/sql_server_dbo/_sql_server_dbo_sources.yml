@@ -13,16 +13,16 @@ sources:
       error_after: { count: 744, period: hour }
 
     tables:
-      - name: addresses
-        loaded_at_field: _fivetran_synced
+      - name: ADDRESSES
+        loaded_at_field: _FIVETRAN_SYNCED
         columns:
-          - name: address
-          - name: address_id
-          - name: country
-          - name: state
-          - name: zipcode
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+          - name: ADDRESS
+          - name: ADDRESS_ID
+          - name: COUNTRY
+          - name: STATE
+          - name: ZIPCODE
+          - name: _FIVETRAN_DELETED
+          - name: _FIVETRAN_SYNCED
 
       - name: events
         loaded_at_field: _fivetran_synced
@@ -56,14 +56,14 @@ sources:
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
-      - name: order_items
-        loaded_at_field: _fivetran_synced
+      - name: ORDER_ITEMS
+        loaded_at_field: _FIVETRAN_SYNCED
         columns:
-          - name: order_id
-          - name: product_id
-          - name: quantity
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+          - name: ORDER_ID
+          - name: PRODUCT_ID
+          - name: QUANTITY
+          - name: _FIVETRAN_DELETED
+          - name: _FIVETRAN_SYNCED
 
       - name: products
         loaded_at_field: _fivetran_synced
@@ -75,14 +75,14 @@ sources:
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
-      - name: promos
-        loaded_at_field: _fivetran_synced
+      - name: PROMOS
+        loaded_at_field: _FIVETRAN_SYNCED 
         columns:
-          - name: discount
-          - name: promo_id
-          - name: status
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+          - name: DISCOUNT
+          - name: PROMO_ID 
+          - name: STATUS
+          - name: _FIVETRAN_DELETED 
+          - name: _FIVETRAN_SYNCED 
 
       - name: users
         loaded_at_field: _fivetran_synced
