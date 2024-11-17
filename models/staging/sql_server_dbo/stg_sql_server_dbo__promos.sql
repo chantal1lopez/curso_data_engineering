@@ -9,13 +9,13 @@ WITH source AS (
 )
 
 SELECT
-    md5( COALESCE(PROMO_NAME, 'default_value') || COALESCE(STATUS, 'default_value') || COALESCE(DISCOUNT, 'default_status')) AS PROMO_ID
+    md5( COALESCE(PROMO_ID, 'default_value') || COALESCE(STATUS, 'default_value') || COALESCE(DISCOUNT, 'default_status')) AS PROMO_ID
     PROMO_ID AS PROMO_NAME,
     CASE
         WHEN DISCOUNT IS NULL THEN 0  
         WHEN DISCOUNT < 0 THEN 0  
         ELSE DISCOUNT  
-    END AS DISCOUNT,
+    END AS DISCOUNT_EUR,
     STATUS AS PROMOS_STATUS,
     CASE 
         WHEN STATUS IS NULL THEN 'unknown'  

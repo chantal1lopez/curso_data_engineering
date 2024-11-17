@@ -24,37 +24,37 @@ sources:
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
-      - name: events
-        loaded_at_field: _fivetran_synced
+      - name: EVENTS
+        loaded_at_field: _FIVETRAN_SYNCED
         columns:
-          - name: created_at
-          - name: event_id
-          - name: event_type
-          - name: order_id
-          - name: page_url
-          - name: product_id
-          - name: session_id
-          - name: user_id
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+          - name: CREATED_AT
+          - name: EVENT_ID
+          - name: EVENT_TYPE
+          - name: ORDER_ID
+          - name: PAGE_URL
+          - name: PRODUCT_ID
+          - name: SESSION_ID
+          - name: USER_ID
+          - name: _FIVETRAN_DELETED
+          - name: _FIVETRAN_SYNCED
 
-      - name: orders
-        loaded_at_field: _fivetran_synced
+      - name: ORDERS
+        loaded_at_field: _FIVETRAN_SYNCED
         columns:
-          - name: address_id
-          - name: created_at
-          - name: delivered_at
-          - name: estimated_delivery_at
-          - name: order_cost
-          - name: order_id
-          - name: promo_id
-          - name: shipping_cost
-          - name: shipping_service
-          - name: status
-          - name: tracking_id
-          - name: user_id
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+          - name: ADDRESS_ID
+          - name: CREATED_AT
+          - name: DELIVERED_AT
+          - name: ESTIMATED_DELIVERY_AT
+          - name: ORDER_COST
+          - name: ORDER_ID
+          - name: PROMO_ID
+          - name: SHIPPING_COST
+          - name: SHIPPING_sERVICE
+          - name: STATUS
+          - name: TRACKING_ID
+          - name: USER_ID
+          - name: _FIVETRAN_DELETED
+          - name: _FIVETRAN_SYNCED
 
       - name: ORDER_ITEMS
         loaded_at_field: _FIVETRAN_SYNCED
@@ -65,15 +65,15 @@ sources:
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
-      - name: products
-        loaded_at_field: _fivetran_synced
+      - name: PRODUCTS
+        loaded_at_field: _FIVETRAN_SYNCED
         columns:
-          - name: inventory
-          - name: name
-          - name: price
-          - name: product_id
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+          - name: INVENTORY
+          - name: NAME
+          - name: PRICE
+          - name: PRODUCT_ID
+          - name: _FIVETRAN_DELETED
+          - name: _FIVETRAN_SYNCED
 
       - name: PROMOS
         loaded_at_field: _FIVETRAN_SYNCED 
@@ -84,17 +84,18 @@ sources:
           - name: _FIVETRAN_DELETED 
           - name: _FIVETRAN_SYNCED 
 
-      - name: users
-        loaded_at_field: _fivetran_synced
+      - name: USERS
+        loaded_at_field: _FIVETRAN_SYNCED
         columns:
-          - name: address_id
-          - name: created_at
-          - name: email
-          - name: first_name
-          - name: last_name
-          - name: phone_number
-          - name: total_orders
-          - name: updated_at
-          - name: user_id
-          - name: _fivetran_deleted
-          - name: _fivetran_synced
+          - name: ADDRESS_ID
+          - name: CREATED_AT
+          - name: EMAIL
+          - name: FIRST_NAME
+          - name: LAST_NAME
+          - name: PHONE_NUMBER
+          - name: TOTAL_ORDERS
+          - name: UPDATED_AT
+          - name: USER_ID
+          - name: _FIVETRAN_DELETED
+          - name: _FIVETRAN_SYNCED
+
