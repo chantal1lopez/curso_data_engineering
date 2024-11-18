@@ -1,0 +1,203 @@
+version: 2
+
+sources:
+
+  - name: sql_server_dbo 
+    description: >
+      Datos procesados desde SQL Server, incluyendo tablas como usuarios, promociones,
+      productos, órdenes y otros datos asociados.
+    schema: sql_server_dbo  
+    database: ALUMNO24_DEV_BRONZE_DB  
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 48, period: hour}
+
+    tables:
+
+      - name: users
+        loaded_at_field: _fivetran_synced
+        description: >
+          Tabla de usuarios que incluye información básica como nombres, correos y direcciones.
+        columns:
+          - name: user_id
+            description: >
+              Identificador único del usuario.
+            tests:
+              - not_null
+              - unique
+          - name: first_name
+            description: >
+              Nombre del usuario, normalizado y capitalizado.
+          - name: last_name
+            description: >
+              Apellido del usuario, normalizado y capitalizado.
+          - name: email
+            description: >
+              Dirección de correo electrónico validada y convertida a minúsculas.
+            tests:
+              - not_null
+              - unique
+          - name: phone_number
+            description: >
+              Número de teléfono del usuario, solo dígitos.
+          - name: user_total_orders
+            description: >
+              Total de órdenes asociadas al usuario.
+          - name: user_created_at_utc
+            description: >
+              Fecha y hora de creación del usuario en formato UTC.
+
+      - name: promos
+        loaded_at_field: _fivetran_synced
+        description: >
+          Tabla que almacena las promociones aplicadas, validando valores y generando identificadores únicos.
+        columns:
+          - name: promo_id
+            description: >
+              Identificador único de la promoción generado mediante MD5.
+            tests:
+              - not_null
+              - unique
+          - name: promo_name
+            description: >
+              Nombre de la promoción.
+          - name: discount_eur
+            description: >
+              Valor del descuento en euros, validado para valores nulos o negativos.
+          - name: promos_status
+            description: >
+              Estado de la promoción (activo, inactivo, desconocido).
+
+      - name: products
+        loaded_at_field: _fivetran_synced
+        description: >
+          Tabla que almacena información de los productos, incluyendo precios e inventarios.
+        columns:
+          - name: product_id
+            description: >
+              Identificador único del producto.
+            tests:
+              - not_null
+              - unique
+          - name: product_name
+            description: >
+              Nombre del producto, capitalizado.
+          - name: price
+            description: >
+              Precio del producto en euros.
+          - name: inventory
+            description: >
+              Inventario disponible del producto.
+
+      - name: orders
+        loaded_at_field: _fivetran_synced
+        description: >
+          Datos relacionados con las órdenes de compra, incluyendo costos, usuarios y promociones.
+        columns:
+          - name: order_id
+            description: >
+              Identificador único de la orden.
+            tests:
+              - not_null
+              - unique
+          - name: promo_id
+            description: >
+              Identificador de la promoción asociada a la orden.
+          - name: order_cost_eur
+            description: >
+              Costo de la orden en euros.
+
+      - name: events
+        loaded_at_field: _fivetran_synced
+        description: >
+          Datos relacionados con eventos del usuario, como sesiones y clics en productos.
+        columns:
+          - name: event_id
+            description: >
+              Identificador único del evento.
+            tests:
+              - not_null
+              - unique
+          - name: session_id
+            description: >
+              Identificador único de la sesión del usuario.
+          - name: event_created_at_utc
+            description: >
+              Fecha y hora del evento en formato UTC.
+              
+      - name: order_items
+        loaded_at_field: _fivetran_synced
+        description: >
+          Datos sobre los artículos dentro de las órdenes, vinculando productos con órdenes específicas.
+        columns:
+          - name: order_item_id
+            description: >
+              Identificador único generado para cada combinación de `order_id` y `product_id`.
+            tests:
+              - not_null
+              - unique
+          - name: order_id
+            description: >
+              Identificador único de la orden a la que pertenece el artículo.
+            tests:
+              - not_null
+          - name: product_id
+            description: >
+              Identificador único del producto dentro de la orden.
+            tests:
+              - not_null
+          - name: quantity
+            description: >
+              Cantidad del producto dentro de la orden.
+            tests:
+              - not_null
+              - positive_values
+          - name: _fivetran_synced
+            description: >
+              Marca de tiempo de la última sincronización del dato.
+            tests:
+              - not_null
+
+      - name: addresses
+        loaded_at_field: _fivetran_synced
+        description: >
+          Tabla con información de las direcciones de los usuarios, que incluye detalles como
+          dirección, código postal, país y estado.
+        columns:
+          - name: address_id
+            description: >
+              Identificador único de la dirección.
+            tests:
+              - not_null
+              - unique
+          - name: zipcode
+            description: >
+              Código postal asociado a la dirección.
+            tests:
+              - not_null
+          - name: country
+            description: >
+              País de la dirección, con valores desconocidos reemplazados por 'UNKNOWN'.
+            tests:
+              - not_null
+          - name: address
+            description: >
+              Dirección física asociada al usuario.
+            tests:
+              - not_null
+          - name: state
+            description: >
+              Estado o región asociado a la dirección. Se considera 'UNKNOWN' cuando no se proporciona un valor.
+            tests:
+              - not_null
+          - name: _fivetran_synced
+            description: >
+              Marca de tiempo de la última sincronización del dato.
+            tests:
+              - not_null

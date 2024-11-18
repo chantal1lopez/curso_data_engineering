@@ -1,0 +1,58 @@
+version: 2
+
+sources:
+
+  - name: google_sheets  
+    description: >
+      Datos crudos provenientes de Google Sheets relacionados con presupuestos. 
+      Contiene información sobre productos, cantidades y meses.
+    schema: google_sheets 
+    database: ALUMNO24_DEV_BRONZE_DB  
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 48, period: hour}
+
+    tables:
+      - name: budget
+        description: >
+          Información de presupuesto, incluyendo productos, cantidades y periodos mensuales.
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: _row
+            description: >
+              Identificador único de cada fila en la hoja de Google Sheets.
+            tests:
+              - not_null
+              - unique
+          - name: product_id
+            description: >
+              Identificador único del producto presupuestado.
+            tests:
+              - not_null
+          - name: quantity
+            description: >
+              Cantidad presupuestada por producto para cada mes.
+            tests:
+              - not_null
+              - positive_values
+          - name: year
+            description: >
+              Año extraído de la columna `MONTH` en la fuente original.
+            tests:
+              - not_null
+          - name: month
+            description: >
+              Mes extraído de la columna `MONTH` en la fuente original.
+            tests:
+              - not_null
+          - name: _fivetran_synced
+            description: >
+              Marca de tiempo que indica cuándo se sincronizó el dato con Fivetran.
+            tests:
+              - not_null
