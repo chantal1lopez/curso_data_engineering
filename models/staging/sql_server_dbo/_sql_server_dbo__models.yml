@@ -70,7 +70,7 @@ sources:
           - name: discount_eur
             description: >
               Valor del descuento en euros, validado para valores nulos o negativos.
-          - name: promos_status
+          - name: promo_status
             description: >
               Estado de la promoción (activo, inactivo, desconocido).
 

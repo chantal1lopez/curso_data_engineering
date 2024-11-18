@@ -6,7 +6,7 @@
 
 WITH promo_source AS (
     SELECT
-        md5( COALESCE(PROMO_NAME, 'default_value') || COALESCE(STATUS, 'default_value') || COALESCE(DISCOUNT, 'default_status')) AS PROMO_ID, -- Nuevo Promo ID generado
+        {{ dbt_utils.generate_surrogate_key(['PROMO_ID', 'STATUS', 'DISCOUNT']) }} AS PROMO_ID,
         PROMO_NAME
     FROM {{ source('SQL_SERVER_DBO', 'PROMOS') }}
 ),

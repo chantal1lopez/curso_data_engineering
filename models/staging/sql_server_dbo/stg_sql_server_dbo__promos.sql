@@ -5,26 +5,35 @@
 }}
 
 WITH source AS (
-    SELECT * FROM {{ source('SQL_SERVER_DBO', 'PROMOS') }}
+    SELECT * 
+    FROM {{ source('SQL_SERVER_DBO', 'PROMOS') }}
+),
+
+renamed_casted AS (
+    SELECT
+          PROMO_ID as PROMO_ID
+        , PROMO_ID as PROMO_NAME
+        , CASE WHEN DISCOUNT IS NULL THEN 0
+             WHEN DISCOUNT < 0 THEN 0  
+             ELSE DISCOUNT
+            END as DISCOUNT_EUR
+        , status
+        ,  _FIVETRAN_DELETED
+        , CONVERT_TIMEZONE('UTC', _FIVETRAN_SYNCED) AS _FIVETRAN_SYNCED_UTC
+    FROM source
+    union all
+    select  'sin_promo'
+            ,'sin_promo'
+            , 0
+            , 'unknown'
+            , null
+            , null
 )
 
-SELECT
-    md5( COALESCE(PROMO_ID, 'default_value') || COALESCE(STATUS, 'default_value') || COALESCE(DISCOUNT, 'default_status')) AS PROMO_ID
-    PROMO_ID AS PROMO_NAME,
-    CASE
-        WHEN DISCOUNT IS NULL THEN 0  
-        WHEN DISCOUNT < 0 THEN 0  
-        ELSE DISCOUNT  
-    END AS DISCOUNT_EUR,
-    STATUS AS PROMOS_STATUS,
-    CASE 
-        WHEN STATUS IS NULL THEN 'unknown'  
-        ELSE STATUS
-    END AS PROMOS_STATUS,  
-    CONVERT_TIMEZONE('UTC', _FIVETRAN_DELETED) AS _FIVETRAN_DELETED_UTC,
-    CONVERT_TIMEZONE('UTC', _FIVETRAN_SYNCED) AS _FIVETRAN_SYNCED_UTC
-
-FROM source
-;
-
--- aqui hay que crear una fila de promos que sea nulo 
+SELECT {{ dbt_utils.generate_surrogate_key(['PROMO_ID']) }} as PROMO_ID
+        , PROMO_ID as PROMO_NAME
+        , DISCOUNT_EUR
+        , status as PROMO_STATUS
+        ,_FIVETRAN_DELETED
+        ,_FIVETRAN_SYNCED_UTC
+FROM renamed_casted
