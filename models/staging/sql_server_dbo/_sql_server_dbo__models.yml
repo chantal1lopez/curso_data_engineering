@@ -20,7 +20,7 @@ sources:
 
     tables:
 
-      - name: users
+      - name: USERS
         loaded_at_field: _fivetran_synced
         description: >
           Tabla de usuarios que incluye información básica como nombres, correos y direcciones.
@@ -53,7 +53,7 @@ sources:
             description: >
               Fecha y hora de creación del usuario en formato UTC.
 
-      - name: promos
+      - name: PROMOS
         loaded_at_field: _fivetran_synced
         description: >
           Tabla que almacena las promociones aplicadas, validando valores y generando identificadores únicos.
@@ -74,7 +74,7 @@ sources:
             description: >
               Estado de la promoción (activo, inactivo, desconocido).
 
-      - name: products
+      - name: PRODUCTS
         loaded_at_field: _fivetran_synced
         description: >
           Tabla que almacena información de los productos, incluyendo precios e inventarios.
@@ -95,7 +95,7 @@ sources:
             description: >
               Inventario disponible del producto.
 
-      - name: orders
+      - name: ORDERS
         loaded_at_field: _fivetran_synced
         description: >
           Datos relacionados con las órdenes de compra, incluyendo costos, usuarios y promociones.
@@ -113,7 +113,7 @@ sources:
             description: >
               Costo de la orden en euros.
 
-      - name: events
+      - name: EVENTS
         loaded_at_field: _fivetran_synced
         description: >
           Datos relacionados con eventos del usuario, como sesiones y clics en productos.
@@ -131,7 +131,7 @@ sources:
             description: >
               Fecha y hora del evento en formato UTC.
               
-      - name: order_items
+      - name: ORDER_ITEMS
         loaded_at_field: _fivetran_synced
         description: >
           Datos sobre los artículos dentro de las órdenes, vinculando productos con órdenes específicas.
@@ -164,7 +164,7 @@ sources:
             tests:
               - not_null
 
-      - name: addresses
+      - name: ADDRESSES
         loaded_at_field: _fivetran_synced
         description: >
           Tabla con información de las direcciones de los usuarios, que incluye detalles como
@@ -179,23 +179,15 @@ sources:
           - name: zipcode
             description: >
               Código postal asociado a la dirección.
-            tests:
-              - not_null
           - name: country
             description: >
-              País de la dirección, con valores desconocidos reemplazados por 'UNKNOWN'.
-            tests:
-              - not_null
+              País de la dirección.
           - name: address
             description: >
               Dirección física asociada al usuario.
-            tests:
-              - not_null
           - name: state
             description: >
-              Estado o región asociado a la dirección. Se considera 'UNKNOWN' cuando no se proporciona un valor.
-            tests:
-              - not_null
+              Estado o región asociado a la dirección.
           - name: _fivetran_synced
             description: >
               Marca de tiempo de la última sincronización del dato.

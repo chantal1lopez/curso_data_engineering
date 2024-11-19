@@ -24,31 +24,31 @@ sources:
           Información de presupuesto, incluyendo productos, cantidades y periodos mensuales.
         loaded_at_field: _fivetran_synced
         columns:
-          - name: _row
+          - name: _ROW
             description: >
               Identificador único de cada fila en la hoja de Google Sheets.
             tests:
               - not_null
               - unique
-          - name: product_id
+          - name: PRODUCT_ID
             description: >
               Identificador único del producto presupuestado.
             tests:
               - relationships:
                   to: source('SQL_SERVER_DBO','PRODUCTS')
                   field: PRODUCT_ID
-          - name: quantity
+          - name: QUANTITY
             description: >
               Cantidad presupuestada por producto para cada mes.
             tests:
               - not_null
               - positive_values
-          - name: year
+          - name: YEAR
             description: >
               Año extraído de la columna `MONTH` en la fuente original.
-          - name: month
+          - name: MONTH
             description: >
               Mes extraído de la columna `MONTH` en la fuente original.
-          - name: _fivetran_synced
+          - name: _FIVETRAN_SYNCED
             description: >
               Marca de tiempo que indica cuándo se sincronizó el dato con Fivetran.
