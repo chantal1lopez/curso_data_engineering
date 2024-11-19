@@ -9,7 +9,10 @@ WITH source AS (
 )
 
 SELECT
-    md5(COALESCE(ORDER_ID, 'default_order_id') || COALESCE(PRODUCT_ID, 'default_product_id')) AS ORDER_ITEM_ID
+    {{ dbt_utils.generate_surrogate_key([
+        "COALESCE(ORDER_ID, 'default_order_id')",
+        "COALESCE(PRODUCT_ID, 'default_product_id')"
+    ]) }} AS ORDER_ITEM_ID
     ORDER_ID,
     PRODUCT_ID,
     QUANTITY,

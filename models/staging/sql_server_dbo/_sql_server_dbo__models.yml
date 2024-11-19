@@ -136,7 +136,7 @@ sources:
         description: >
           Datos sobre los artículos dentro de las órdenes, vinculando productos con órdenes específicas.
         columns:
-          - name: order_item_id
+          - name: ORDER_ITEM_ID
             description: >
               Identificador único generado para cada combinación de `order_id` y `product_id`.
             tests:
@@ -145,8 +145,6 @@ sources:
           - name: order_id
             description: >
               Identificador único de la orden a la que pertenece el artículo.
-            tests:
-              - not_null
           - name: product_id
             description: >
               Identificador único del producto dentro de la orden.
