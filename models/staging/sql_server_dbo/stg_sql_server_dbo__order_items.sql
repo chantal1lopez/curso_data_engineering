@@ -17,4 +17,3 @@ SELECT
 FROM source
 
 
--- como comprobamos que el order_id y el product_id son validos ?? 

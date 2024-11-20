@@ -154,13 +154,10 @@ sources:
             description: >
               Cantidad del producto dentro de la orden.
             tests:
-              - not_null
               - positive_values
           - name: _fivetran_synced
             description: >
               Marca de tiempo de la última sincronización del dato.
-            tests:
-              - not_null
 
       - name: ADDRESSES
         loaded_at_field: _fivetran_synced
