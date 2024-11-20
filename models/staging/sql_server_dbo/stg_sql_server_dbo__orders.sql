@@ -6,16 +6,16 @@ WITH source AS (
 
 SELECT
     ORDER_ID,
-    SHIPPING_SERVICE_ID,
-    SHIPPING_COST_EUR,  
     ADDRESS_ID,
     PROMO_ID,
-    ORDER_COST_EUR,  
     USER_ID,
+    SHIPPING_SERVICE_ID,
+    SHIPPING_COST_EUR,  
+    ORDER_COST_EUR,  
     ORDER_TOTAL_EUR,  
+    CREATED_AT_UTC,
     TRACKING_ID,
     ORDER_STATUS_ID,
-    CREATED_AT_UTC,
     ESTIMATED_DELIVERY_AT_UTC,
     DELIVERED_AT_UTC,
     _FIVETRAN_DELETED_UTC,
@@ -25,7 +25,3 @@ FROM source
 
 
 
-
--- pensar que tabla sacar de dimseniones y cual de hechos 
-
--- hacer tabla tiempo dimension 

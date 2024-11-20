@@ -11,7 +11,10 @@ WITH order_source AS (
 SELECT
     ORDER_ID,
     {{ dbt_utils.generate_surrogate_key(['SHIPPING_SERVICE']) }} as SHIPPING_SERVICE_ID,
-    SHIPPING_SERVICE,
+    CASE WHEN SHIPPING_SERVICE ='' 
+    THEN 'undefined'
+    ELSE SHIPPING_SERVICE
+    END AS SHIPPING_SERVICE ,
     SHIPPING_COST  AS SHIPPING_COST_EUR,  
     ADDRESS_ID,
     {{ dbt_utils.generate_surrogate_key(['PROMO_ID']) }} as PROMO_ID,
@@ -27,3 +30,8 @@ SELECT
     _FIVETRAN_DELETED AS _FIVETRAN_DELETED_UTC,
     CONVERT_TIMEZONE('UTC', _FIVETRAN_SYNCED) AS _FIVETRAN_SYNCED_UTC
 FROM order_source 
+
+
+
+
+
