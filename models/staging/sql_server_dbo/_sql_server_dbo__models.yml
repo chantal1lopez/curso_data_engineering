@@ -1,11 +1,11 @@
 version: 2
 
 models:
-  - name: USERS
+  - name: stg_sql_server_dbo__users
     description: >
       Tabla de usuarios que incluye información básica como nombres, correos y direcciones.
     columns:
-      - name: user_id
+      - name: USER_ID
         description: >
           Identificador único del usuario.
         tests:
