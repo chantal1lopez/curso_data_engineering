@@ -1,7 +1,7 @@
 sources:
   - name: SQL_SERVER_DBO # name of the source
     schema: SQL_SERVER_DBO # this is the schema our raw data lives in
-    database: "{{ env_var('DBT_ENVIRONMENT') }}_BRONZE_DB"
+    database: "{{ env_var('DBT_ENVIROMENT') }}_BRONZE_DB"
 
     quoting:
       database: false
