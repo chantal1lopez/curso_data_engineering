@@ -36,22 +36,27 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
+  +transient: false
   my_new_project:
-    example:
-      +materialized: table
-    marts:
-      +database: "ALUMNO24_DEV_GOLD_DB"
-      +schema: "GOLD_SCHEMA"
-      +materialized: table
+    # Applies to all files under models/example/
 
     staging:
-      sql_server_dbo:
-        +enabled: true
+      +materialized: view
+      +database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"
       google_sheets:
-        +enabled: true
-
-
-# configuracion para saber donde se crea el seed
-# seeds:
-#   +database: "ALUMNO24_DEV_BRONZE_DB"
-#   +schema: "SEEDS"
+        +schema: google_sheets
+      sql_server_dbo:
+        +schema: sql_server_dbo
+      
+    marts:
+      +materialized: table
+      +database: "{{ env_var('DBT_ENVIRONMENTS') }}_GOLD_DB"
+      core:
+        +schema: core
+seeds:
+  +schema: seed_data
+  +database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"        
+snapshots:
+  +transient: false
+  +target_database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"
+  +target_schema: snapshots
