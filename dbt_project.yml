@@ -42,7 +42,7 @@ models:
 
     staging:
       +materialized: view
-      +database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"
+      +database: "{{ env_var('DBT_ENVIRONMENT') }}_SILVER_DB"
       google_sheets:
         +schema: google_sheets
       sql_server_dbo:
@@ -50,13 +50,13 @@ models:
       
     marts:
       +materialized: table
-      +database: "{{ env_var('DBT_ENVIRONMENTS') }}_GOLD_DB"
+      +database: "{{ env_var('DBT_ENVIRONMENT') }}_GOLD_DB"
       core:
         +schema: core
 seeds:
   +schema: seed_data
-  +database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"        
+  +database: "{{ env_var('DBT_ENVIRONMENT') }}_BRONZE_DB"        
 snapshots:
   +transient: false
-  +target_database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"
+  +target_database: "{{ env_var('DBT_ENVIRONMENT') }}_SILVER_DB"
   +target_schema: snapshots

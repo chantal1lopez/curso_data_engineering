@@ -1,7 +1,7 @@
 sources:
   - name: GOOGLE_SHEETS # name of the source
     schema: GOOGLE_SHEETS # this is the schema our raw data lives in
-    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"
+    database: "{{ env_var('DBT_ENVIRONMENT') }}_BRONZE_DB"
 
     quoting:
       database: false
