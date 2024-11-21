@@ -18,8 +18,8 @@ fact_data AS (
         oi.ORDER_ID,
         oi.PRODUCT_ID,
         oi.QUANTITY,
-        p.PRODUCT_PRICE,
-        oi.QUANTITY * p.PRODUCT_PRICE AS ITEMS_TOTAL_COST
+        p.PRICE,
+        oi.QUANTITY * p.PRICE AS ITEMS_TOTAL_COST
         
     FROM order_items oi
     LEFT JOIN products p ON oi.PRODUCT_ID = p.PRODUCT_ID
